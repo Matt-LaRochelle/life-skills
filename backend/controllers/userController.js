@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const Skill = require('../models/skillModel')
 const jwt = require('jsonwebtoken')
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -30,10 +31,26 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(email, password)
 
+        // Also create the skills list
+        const skill = await Skill.create({
+                "userID": user._id,
+                "exe": false,
+                "fin": false,
+                "med": false,
+                "com": false,
+                "upE": false,
+                "pub": false,
+                "hon": false,
+                "lea": false,
+                "dec": false,
+                "lis": false,
+                "tally": []
+            })
+
         // create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email, token})
+        res.status(200).json({email, token, skill})
     } catch (error) {
         res.status(400).json({error: error.message})
     }

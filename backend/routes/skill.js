@@ -12,9 +12,6 @@ const requireAuth = require('../middleware/requireAuth')
 // Require authentication to check the user
 router.use(requireAuth)
 
-// create a new skill list
-router.post('/create', createSkillList)
-
 // update the skill list
 router.post('/update', updateSkillList)
 

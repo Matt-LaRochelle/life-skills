@@ -9,35 +9,13 @@ const createToken = (_id) => {
 }
 
 
-// create new skill list
-const createSkillList = async (req, res) => {
-    const { id } = req.user
-    const skillsObject = req.body
-
-    const skillsList = {...skillsObject, "userID": id, "tally": []}
-    console.log("skills list", skillsList);
-
-    try {
-        const newSkillsList = await Skill.create(skillsList)
-        res.status(200).json(newSkillsList)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
-
 // update skill list
 const updateSkillList = async (req, res) => {
-    const {email, password} = req.body
 
     try {
-        const user = await User.login(email, password)
-
-        // create a token
-        const token = createToken(user._id)
-
-        res.status(200).json({email, token})
+        res.status(200).json({message: "received!"})
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({message: "Bad things happened"})
     }
 }
 
@@ -48,4 +26,4 @@ const updateSkillList = async (req, res) => {
 
 
 
-module.exports = { createSkillList, updateSkillList,  }
+module.exports = { updateSkillList }

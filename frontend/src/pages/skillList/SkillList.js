@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useAuthContext } from '../../hooks/useAuthContext'
+import { useSkillsContext } from '../../hooks/useSkillsContext'
 import { format } from 'date-fns';
 
 import './skillList.css'
 
 const SkillList = () => {
     const {user} = useAuthContext()
+    const {skills, dispatch} = useSkillsContext()
 
     const [completed, setCompleted] = useState({
         "exe": false,
@@ -21,6 +23,8 @@ const SkillList = () => {
     })
     const [numberComplete, setNumberComplete] = useState(0)
 
+    console.log("skills", skills)
+
     // Get today's date
     const currentDate = new Date();
     const formattedDate = format(currentDate, 'EEEE, MMMM do, y');
@@ -35,6 +39,34 @@ const SkillList = () => {
           }
         setNumberComplete(total);
     }, [completed])
+
+
+    // update the skill list
+    // useEffect(() => {
+    //     const getSkillList = async () => {
+
+    //         const response = await fetch('http://localhost:4000/api/skill/', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${jSon.token}`
+    //             },
+    //         })
+    //         const json = await response.json()
+    //         console.log("step 2")
+            
+    //         if (!response.ok) {
+    //             setIsLoading(false)
+    //             setError(json.error)
+    //         }
+    //         if (response.ok) {
+    //             // update the auth context
+    //             // dispatch({type: 'CREATE_SKILLS', payload: json})
+                
+    //             setIsLoading(false)
+    //         }
+    //     }
+    // })
 
     // Update specific skill in the object
     const handleClick = (e) => {
