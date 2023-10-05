@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
+import { useSetup } from './useSetup'
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
+    const { setup } = useSetup()
 
     const signup = async (email, password) => {
         setIsLoading(true)
@@ -27,6 +29,9 @@ export const useSignup = () => {
 
             // update the auth context
             dispatch({type: 'LOGIN', payload: json})
+
+            // set new skills list
+            await setup(json)
 
             setIsLoading(false)
         }
