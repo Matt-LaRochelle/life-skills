@@ -5,6 +5,9 @@ background-color: lightseagreen;
 .skillList__container li {
     list-style-type: none;
 }
+.skillList__container span {
+    margin-right: 30px;
+}
 
 .collections {
     display: grid;
