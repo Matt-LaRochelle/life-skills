@@ -5,6 +5,8 @@ import { format } from 'date-fns';
 import './skillList.css'
 
 const SkillList = () => {
+    const {user} = useAuthContext()
+
     const [completed, setCompleted] = useState({
         "exe": false,
         "fin": false,
@@ -19,8 +21,7 @@ const SkillList = () => {
     })
     const [numberComplete, setNumberComplete] = useState(0)
 
-    const {user} = useAuthContext()
-
+    // Get today's date
     const currentDate = new Date();
     const formattedDate = format(currentDate, 'EEEE, MMMM do, y');
 
@@ -35,6 +36,7 @@ const SkillList = () => {
         setNumberComplete(total);
     }, [completed])
 
+    // Update specific skill in the object
     const handleClick = (e) => {
         const skill = e.target.id;
         setCompleted((prevValue) => ({
