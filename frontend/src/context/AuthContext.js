@@ -50,7 +50,7 @@ export const AuthContextProvider = ({ children }) => {
     }, [])
 
     // This is part of the old code and used for debugging
-    console.log('AuthContext state: ', state)
+    // console.log('AuthContext state: ', state)
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>

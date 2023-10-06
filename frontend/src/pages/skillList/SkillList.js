@@ -11,19 +11,9 @@ const SkillList = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
 
-    const [completed, setCompleted] = useState({
-        "exe": false,
-        "fin": false,
-        "med": false,
-        "com": false,
-        "upE": false,
-        "pub": false,
-        "hon": false,
-        "lea": false,
-        "dec": false,
-        "lis": false,
-    })
+
     const [numberComplete, setNumberComplete] = useState(0)
+    const [retrieveSkillsData, setRetrieveSkillsData] = useState(false)
 
     // Get today's date
     const currentDate = new Date();
@@ -53,47 +43,34 @@ const SkillList = () => {
             }
         }
     getSkillsObject()
-    }, [])
+    }, [retrieveSkillsData])
 
-    // This useEffect will be used to create a tally
+    // This useEffect will be used to update the score for today
     useEffect(() => {
+        let total = 0;
 
-        // Update the skills object with this item:
-        // {exe: true}
-        // dispatch({type: 'UPDATE_SKILL', payload: json})
+        for (const item in skills) {
+            if (skills[item] === true) {
+              total++;
+            }
+          }
 
+        setNumberComplete(prevNumberComplete => {
+            if (prevNumberComplete !== total) {
+                return total;
+            }
+            return prevNumberComplete;
+        });
+    }, [retrieveSkillsData])
 
-
-
-        // Use let so that you can increment the variable
-        // let total = 0;
-        // for (const item in completed) {
-        //     if (completed[item] === true) {
-        //       total++;
-        //     }
-        //   }
-        // setNumberComplete(total);
-    }, [completed])
-
-
-    // Update specific skill in the object
-    // const handleClick = (e) => {
-    //     const skill = e.target.id;
-    //     setCompleted((prevValue) => ({
-    //       ...prevValue,
-    //       [skill]: !prevValue[skill],
-    //     }));
-    // }
 
     // Update specific skill in the object
     const handleClick = async (e) => {
         const skill = e.target.id;
-        // Check current skills value
-        console.log("skill:", skill)
+        const currentValueOfThisSkill = skills[skill]
 
-        // How can i get the const skill (string) into this patchObject as the key?
-        const patchObject = {[skill]: true}
-        console.log(patchObject)
+        // make the const skill the key in this patchObject
+        const patchObject = {[skill]: !currentValueOfThisSkill}
 
         const response = await fetch('http://localhost:4000/api/skill/', {
             method: 'PATCH',
@@ -105,17 +82,13 @@ const SkillList = () => {
         })
 
         const json = await response.json()
-        console.log("step patch")
-        console.log("patch json:", json)
         
         if (!response.ok) {
             setIsLoading(false)
             setError(json.error)
         }
         if (response.ok) {
-            // update the auth context
-            // dispatch({type: 'CREATE_SKILLS', payload: json})
-            console.log("patch response was ok!")
+            setRetrieveSkillsData(prevValue => !prevValue)
             setIsLoading(false)
         }
 
@@ -127,18 +100,20 @@ const SkillList = () => {
         <div className="skillList__container">
             <p>{formattedDate}</p>
             <p>Total: {numberComplete}</p>
+            {skills &&
             <ul>
-                <li><span id="exe" onClick={handleClick}>{completed.exe === false ? "To Do" : "Done"}</span>Exercise consistently</li>
-                <li><span id="fin" onClick={handleClick}>{completed.fin === false ? "To Do" : "Done"}</span>Personal finance</li>
-                <li><span id="med" onClick={handleClick}>{completed.med === false ? "To Do" : "Done"}</span>Meditation</li>
-                <li><span id="com" onClick={handleClick}>{completed.com === false ? "To Do" : "Done"}</span>Communication</li>
-                <li><span id="upE" onClick={handleClick}>{completed.upE === false ? "To Do" : "Done"}</span>Waking up early</li>
-                <li><span id="pub" onClick={handleClick}>{completed.pub === false ? "To Do" : "Done"}</span>Public speaking</li>
-                <li><span id="hon" onClick={handleClick}>{completed.hon === false ? "To Do" : "Done"}</span>Getting honest with yourself</li>
-                <li><span id="lea" onClick={handleClick}>{completed.lea === false ? "To Do" : "Done"}</span>Leadership skills</li>
-                <li><span id="dec" onClick={handleClick}>{completed.dec === false ? "To Do" : "Done"}</span>Decision making</li>
-                <li><span id="lis" onClick={handleClick}>{completed.lis === false ? "To Do" : "Done"}</span>Listening</li>
+                <li><span id="exe" onClick={handleClick}>{skills.exe === false ? "To Do" : "Done"}</span>Exercise consistently</li>
+                <li><span id="fin" onClick={handleClick}>{skills.fin === false ? "To Do" : "Done"}</span>Personal finance</li>
+                <li><span id="med" onClick={handleClick}>{skills.med === false ? "To Do" : "Done"}</span>Meditation</li>
+                <li><span id="com" onClick={handleClick}>{skills.com === false ? "To Do" : "Done"}</span>Communication</li>
+                <li><span id="upE" onClick={handleClick}>{skills.upE === false ? "To Do" : "Done"}</span>Waking up early</li>
+                <li><span id="pub" onClick={handleClick}>{skills.pub === false ? "To Do" : "Done"}</span>Public speaking</li>
+                <li><span id="hon" onClick={handleClick}>{skills.hon === false ? "To Do" : "Done"}</span>Getting honest with yourself</li>
+                <li><span id="lea" onClick={handleClick}>{skills.lea === false ? "To Do" : "Done"}</span>Leadership skills</li>
+                <li><span id="dec" onClick={handleClick}>{skills.dec === false ? "To Do" : "Done"}</span>Decision making</li>
+                <li><span id="lis" onClick={handleClick}>{skills.lis === false ? "To Do" : "Done"}</span>Listening</li>
             </ul>
+            }
         </div>
     )
 }

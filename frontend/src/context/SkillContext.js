@@ -22,7 +22,7 @@ export const SkillsContextProvider = ({ children }) => {
         skills: null
     })
 
-    console.log('SkillsContext state: ', state)
+    // console.log('SkillsContext state: ', state)
 
     return (
         <SkillsContext.Provider value={{...state, dispatch}}>
