@@ -29,9 +29,10 @@ const signupUser = async (req, res) => {
     const {email, password} = req.body
 
     try {
+        // Create a new user
         const user = await User.signup(email, password)
 
-        // Also create the skills list
+        // Also create a new skills list
         const skill = await Skill.create({
                 "userID": user._id,
                 "exe": false,

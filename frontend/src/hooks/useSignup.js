@@ -18,11 +18,27 @@ export const useSignup = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
         })
-        const {email, token, skill } = await response.json()
+        const json = await response.json()
 
         // need to separate the login payload from the skills payload
-        const json = {email, token}
-        const listOfSkills = skill
+        const userEmail = json.email.toString()
+        const userToken = json.token.toString()
+        const userSkills = json.skill
+
+        console.log("email:", userEmail);
+        console.log("token:", userToken);
+        console.log("skills:", userSkills);
+
+        // Create local storage cookie
+        const cookie = {
+            user: {
+                email: userEmail,
+                token: userToken
+            }
+        }
+        console.log("cookie:", cookie)
+
+
 
         if (!response.ok) {
             setIsLoading(false)
@@ -30,11 +46,11 @@ export const useSignup = () => {
         }
         if (response.ok) {
             // save the user to local storage
-            // localStorage.setItem('user', JSON.stringify(json))
+            localStorage.setItem('user', JSON.stringify(cookie))
 
             // update the auth context
-            dispatch({type: 'LOGIN', payload: json})
-            skillsDispatch({type: 'SET_SKILLS', payload: listOfSkills})
+            dispatch({type: 'LOGIN', payload: cookie})
+            // skillsDispatch({type: 'SET_SKILLS', payload: userSkills})
 
             // set new skills list
             // await setup(json)
