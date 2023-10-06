@@ -16,7 +16,7 @@ router.use(requireAuth)
 router.get('/', getSkillList)
 
 // update the skill list
-router.post('/update', updateSkillList)
+router.patch('/', updateSkillList)
 
 // reset a skill list
 

@@ -29,7 +29,8 @@ const SkillList = () => {
     const currentDate = new Date();
     const formattedDate = format(currentDate, 'EEEE, MMMM do, y');
 
-    // Get the skills document if you don't already have it.
+    // Get the skills document AND set skills context 
+    // when you load the page
     useEffect(() => {
         const getSkillsObject = async () => {
             setIsLoading(true)
@@ -41,17 +42,13 @@ const SkillList = () => {
                 },
             })
             const json = await response.json()
-            console.log("step 2")
-            console.log("json:", json)
             
             if (!response.ok) {
                 setIsLoading(false)
                 setError(json.error)
             }
             if (response.ok) {
-                // update the skills context
-                dispatch({type: 'SET_SKILLS', payload: json})
-                
+                dispatch({type: 'SET_SKILLS', payload: json})   
                 setIsLoading(false)
             }
         }
@@ -79,36 +76,6 @@ const SkillList = () => {
     }, [completed])
 
 
-    // POE --- please ignore this section ---
-    // update the skill list
-    // useEffect(() => {
-    //     const getSkillList = async () => {
-
-    //         const response = await fetch('http://localhost:4000/api/skill/', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${jSon.token}`
-    //             },
-    //         })
-    //         const json = await response.json()
-    //         console.log("step 2")
-            
-    //         if (!response.ok) {
-    //             setIsLoading(false)
-    //             setError(json.error)
-    //         }
-    //         if (response.ok) {
-    //             // update the auth context
-    //             // dispatch({type: 'CREATE_SKILLS', payload: json})
-                
-    //             setIsLoading(false)
-    //         }
-    //     }
-    // })
-
-    // POE --- continue reading please ---
-
     // Update specific skill in the object
     // const handleClick = (e) => {
     //     const skill = e.target.id;
@@ -117,22 +84,49 @@ const SkillList = () => {
     //       [skill]: !prevValue[skill],
     //     }));
     // }
-    const handleClick = (e) => {
-        const skill = e.target.id;
-        console.log(skill)
-    };
-    
 
-    const getSkillsContext = () => {
-        console.log(skills)
-    }
+    // Update specific skill in the object
+    const handleClick = async (e) => {
+        const skill = e.target.id;
+        // Check current skills value
+        console.log("skill:", skill)
+
+        // How can i get the const skill (string) into this patchObject as the key?
+        const patchObject = {[skill]: true}
+        console.log(patchObject)
+
+        const response = await fetch('http://localhost:4000/api/skill/', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify(patchObject)
+        })
+
+        const json = await response.json()
+        console.log("step patch")
+        console.log("patch json:", json)
+        
+        if (!response.ok) {
+            setIsLoading(false)
+            setError(json.error)
+        }
+        if (response.ok) {
+            // update the auth context
+            // dispatch({type: 'CREATE_SKILLS', payload: json})
+            console.log("patch response was ok!")
+            setIsLoading(false)
+        }
+
+
+    };
 
 
     return (
         <div className="skillList__container">
             <p>{formattedDate}</p>
             <p>Total: {numberComplete}</p>
-            <p onClick={getSkillsContext}>Get skils context</p>
             <ul>
                 <li><span id="exe" onClick={handleClick}>{completed.exe === false ? "To Do" : "Done"}</span>Exercise consistently</li>
                 <li><span id="fin" onClick={handleClick}>{completed.fin === false ? "To Do" : "Done"}</span>Personal finance</li>

@@ -21,11 +21,17 @@ const getSkillList = async (req, res) => {
 
 // update skill list
 const updateSkillList = async (req, res) => {
+    const skill  = req.body
+    console.log(skill)
 
+    const updatedSkillList = await Skill.updateOne(
+        { userID: req.user._id }, 
+        { $set: skill } // patch/set in the item here
+    )
     try {
-        res.status(200).json({message: "received!"})
+        res.status(200).json(updatedSkillList)
     } catch (error) {
-        res.status(400).json({message: "Bad things happened"})
+        res.status(400).json({message: error.message})
     }
 }
 
