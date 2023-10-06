@@ -43,6 +43,7 @@ const SkillList = () => {
             }
         }
     getSkillsObject()
+    // trigger by the retreival of the skills data after a patch
     }, [retrieveSkillsData])
 
     // This useEffect will be used to update the score for today
@@ -61,7 +62,8 @@ const SkillList = () => {
             }
             return prevNumberComplete;
         });
-    }, [retrieveSkillsData])
+        // trigger by skills to get total after skills state has been updated
+    }, [skills])
 
 
     // Update specific skill in the object

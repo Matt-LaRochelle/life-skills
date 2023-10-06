@@ -33,7 +33,7 @@ export const AuthContextProvider = ({ children }) => {
                     const json = await response.json()
                     // This JSON has the skills document in it - set the global state
                     
-                    //TO DO ^^^
+                    //TO DO ^^^ Actually cannot because this is outside the skills context provider
 
 
                     console.log(json)
