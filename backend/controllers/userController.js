@@ -16,12 +16,12 @@ const loginUser = async (req, res) => {
         const user = await User.login(email, password)
 
         // get the skills list too
-        const skills = await Skill.findOne({userID: req.user._id})
+        // const skills = await Skill.findOne({userID: req.user._id})
 
         // create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email, token, skills})
+        res.status(200).json({email, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -54,7 +54,7 @@ const signupUser = async (req, res) => {
         // create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email, token, skill})
+        res.status(200).json({email, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
