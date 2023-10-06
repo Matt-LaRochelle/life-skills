@@ -23,8 +23,6 @@ const SkillList = () => {
     })
     const [numberComplete, setNumberComplete] = useState(0)
 
-    console.log("skills", skills)
-
     // Get today's date
     const currentDate = new Date();
     const formattedDate = format(currentDate, 'EEEE, MMMM do, y');
@@ -77,11 +75,16 @@ const SkillList = () => {
         }));
     }
 
+    const getSkillsContext = () => {
+        console.log(skills)
+    }
+
 
     return (
         <div className="skillList__container">
             <p>{formattedDate}</p>
             <p>Total: {numberComplete}</p>
+            <p onClick={getSkillsContext}>Get skils context</p>
             <ul>
                 <li><span id="exe" onClick={handleClick}>{completed.exe === false ? "To Do" : "Done"}</span>Exercise consistently</li>
                 <li><span id="fin" onClick={handleClick}>{completed.fin === false ? "To Do" : "Done"}</span>Personal finance</li>

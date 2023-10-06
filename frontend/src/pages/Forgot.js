@@ -23,7 +23,6 @@ const Forgot = () => {
         }
         if (response.ok) {
             const text = JSON.stringify(json)
-            console.log("got things back: " + text)
             setLinkSent(true)
             setIsLoading(false)
             setError(false)

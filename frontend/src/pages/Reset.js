@@ -28,7 +28,6 @@ function ResetPassword() {
         }
         if (response.ok) {
             const text = JSON.stringify(json)
-            console.log("got things back: " + text)
             setAuthenticated(true);
         }
       }
@@ -54,7 +53,6 @@ function ResetPassword() {
         }
         if (response.ok) {
             const text = JSON.stringify(json)
-            console.log("got things back: " + text)
             setError(null)
             setIsLoading(false)
             setCompleteReset(true)

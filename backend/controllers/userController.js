@@ -139,7 +139,8 @@ const resetPassword = async (req, res) => {
 }
 
 const checkUser = async (req, res) => {
-    res.status(200).json({message: "You are logged in!"})
+    const skillList = await Skill.findOne({ userID: req.user._id });
+    res.status(200).json({skillList})
 }
 
 module.exports = { signupUser, loginUser, forgotUser, verifyLink, resetPassword, checkUser }

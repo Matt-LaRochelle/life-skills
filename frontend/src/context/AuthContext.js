@@ -30,6 +30,11 @@ export const AuthContextProvider = ({ children }) => {
                         }
                     })
                     const json = await response.json()
+                    // This JSON has the skills document in it - set the global state
+                    
+                    //TO DO ^^^
+
+
                     console.log(json)
 
                     if (response.ok) {
@@ -44,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
     }, [])
 
     // This is part of the old code and used for debugging
-    console.log('AuthContext state: ', state)
+    // console.log('AuthContext state: ', state)
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>

@@ -7,7 +7,8 @@ export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
-    const { skillsDispatch } = useSkillsContext()
+    // dispatch from useSkillsContext needs to be called skillsDispatch after being taken out of the file. how to do this?
+    const { dispatch: skillsDispatch } = useSkillsContext()
 
     const signup = async (email, password) => {
         setIsLoading(true)
@@ -25,18 +26,13 @@ export const useSignup = () => {
         const userToken = json.token.toString()
         const userSkills = json.skill
 
-        console.log("email:", userEmail);
-        console.log("token:", userToken);
-        console.log("skills:", userSkills);
+        // console.log("skills:", userSkills);
 
         // Create local storage cookie
-        const cookie = {
-            user: {
+        let cookie = {
                 email: userEmail,
                 token: userToken
             }
-        }
-        console.log("cookie:", cookie)
 
 
 
@@ -50,7 +46,7 @@ export const useSignup = () => {
 
             // update the auth context
             dispatch({type: 'LOGIN', payload: cookie})
-            // skillsDispatch({type: 'SET_SKILLS', payload: userSkills})
+            skillsDispatch({type: 'SET_SKILLS', payload: userSkills})
 
             // set new skills list
             // await setup(json)
