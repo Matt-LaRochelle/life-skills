@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useSkillsContext } from './useSkillsContext'
-// import { useSetup } from './useSetup'
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
-    // dispatch from useSkillsContext needs to be called skillsDispatch after being taken out of the file. how to do this?
     const { dispatch: skillsDispatch } = useSkillsContext()
 
     const signup = async (email, password) => {
@@ -21,14 +19,14 @@ export const useSignup = () => {
         })
         const json = await response.json()
 
-        // need to separate the login payload from the skills payload
+        // need to separate the signup payload from the skills payload
         const userEmail = json.email.toString()
         const userToken = json.token.toString()
         const userSkills = json.skill
 
         // console.log("skills:", userSkills);
 
-        // Create local storage cookie
+        // Create local storage cookie for signup
         let cookie = {
                 email: userEmail,
                 token: userToken
@@ -46,10 +44,8 @@ export const useSignup = () => {
 
             // update the auth context
             dispatch({type: 'LOGIN', payload: cookie})
+            // set the skills context
             skillsDispatch({type: 'SET_SKILLS', payload: userSkills})
-
-            // set new skills list
-            // await setup(json)
 
             setIsLoading(false)
         }

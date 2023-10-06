@@ -2,7 +2,7 @@ const express = require('express')
 
 // controller functions
 const { 
-    createSkillList,
+    getSkillList,
     updateSkillList
 } = require('../controllers/skillController')
 
@@ -11,6 +11,9 @@ const requireAuth = require('../middleware/requireAuth')
 
 // Require authentication to check the user
 router.use(requireAuth)
+
+// GET the skill list
+router.get('/', getSkillList)
 
 // update the skill list
 router.post('/update', updateSkillList)

@@ -17,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
         user: null
     })
 
+
     // check to see if the user is already logged in
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'))
@@ -49,7 +50,7 @@ export const AuthContextProvider = ({ children }) => {
     }, [])
 
     // This is part of the old code and used for debugging
-    // console.log('AuthContext state: ', state)
+    console.log('AuthContext state: ', state)
 
     return (
         <AuthContext.Provider value={{...state, dispatch}}>

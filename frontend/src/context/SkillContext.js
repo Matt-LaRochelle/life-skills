@@ -8,6 +8,10 @@ export const skillsReducer = (state, action) => {
             return {
                 skills: action.payload
             }
+        case 'UPDATE_SKILL':
+            return {
+                ...state, ...action.payload 
+            }
         default:
             return state
     }

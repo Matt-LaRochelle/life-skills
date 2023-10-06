@@ -8,6 +8,8 @@ import './skillList.css'
 const SkillList = () => {
     const {user} = useAuthContext()
     const {skills, dispatch} = useSkillsContext()
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(null)
 
     const [completed, setCompleted] = useState({
         "exe": false,
@@ -27,18 +29,57 @@ const SkillList = () => {
     const currentDate = new Date();
     const formattedDate = format(currentDate, 'EEEE, MMMM do, y');
 
+    // Get the skills document if you don't already have it.
     useEffect(() => {
-        // Use let so that you can increment the variable
-        let total = 0;
-        for (const item in completed) {
-            if (completed[item] === true) {
-              total++;
+        const getSkillsObject = async () => {
+            setIsLoading(true)
+            const response = await fetch('http://localhost:4000/api/skill/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+            })
+            const json = await response.json()
+            console.log("step 2")
+            console.log("json:", json)
+            
+            if (!response.ok) {
+                setIsLoading(false)
+                setError(json.error)
             }
-          }
-        setNumberComplete(total);
+            if (response.ok) {
+                // update the skills context
+                dispatch({type: 'SET_SKILLS', payload: json})
+                
+                setIsLoading(false)
+            }
+        }
+    getSkillsObject()
+    }, [])
+
+    // This useEffect will be used to create a tally
+    useEffect(() => {
+
+        // Update the skills object with this item:
+        // {exe: true}
+        // dispatch({type: 'UPDATE_SKILL', payload: json})
+
+
+
+
+        // Use let so that you can increment the variable
+        // let total = 0;
+        // for (const item in completed) {
+        //     if (completed[item] === true) {
+        //       total++;
+        //     }
+        //   }
+        // setNumberComplete(total);
     }, [completed])
 
 
+    // POE --- please ignore this section ---
     // update the skill list
     // useEffect(() => {
     //     const getSkillList = async () => {
@@ -66,14 +107,21 @@ const SkillList = () => {
     //     }
     // })
 
+    // POE --- continue reading please ---
+
     // Update specific skill in the object
+    // const handleClick = (e) => {
+    //     const skill = e.target.id;
+    //     setCompleted((prevValue) => ({
+    //       ...prevValue,
+    //       [skill]: !prevValue[skill],
+    //     }));
+    // }
     const handleClick = (e) => {
         const skill = e.target.id;
-        setCompleted((prevValue) => ({
-          ...prevValue,
-          [skill]: !prevValue[skill],
-        }));
-    }
+        console.log(skill)
+    };
+    
 
     const getSkillsContext = () => {
         console.log(skills)
