@@ -9,7 +9,7 @@ export const useLogout = () => {
         // remove user from storage
         localStorage.removeItem('user')
 
-        // dispatch logout action
+        // dispatch logout action and remove skills from global context
         dispatch({type: 'LOGOUT'})
         skillsDispatch({type: 'SET_SKILLS', payload: null})
     }

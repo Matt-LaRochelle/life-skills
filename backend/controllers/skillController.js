@@ -22,11 +22,10 @@ const getSkillList = async (req, res) => {
 // update skill list
 const updateSkillList = async (req, res) => {
     const skill  = req.body
-    console.log(skill)
 
     const updatedSkillList = await Skill.updateOne(
-        { userID: req.user._id }, 
-        { $set: skill } // patch/set in the item here
+        { userID: req.user._id }, // Update skill document with userID matching req.user._id 
+        { $set: skill } // Set the specific skill to true or false
     )
     try {
         res.status(200).json(updatedSkillList)

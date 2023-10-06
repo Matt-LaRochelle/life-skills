@@ -20,7 +20,6 @@ const SkillList = () => {
     const formattedDate = format(currentDate, 'EEEE, MMMM do, y');
 
     // Get the skills document AND set skills context 
-    // when you load the page
     useEffect(() => {
         const getSkillsObject = async () => {
             setIsLoading(true)
@@ -43,6 +42,7 @@ const SkillList = () => {
             }
         }
     getSkillsObject()
+
     // trigger by the retreival of the skills data after a patch
     }, [retrieveSkillsData])
 
@@ -54,15 +54,10 @@ const SkillList = () => {
             if (skills[item] === true) {
               total++;
             }
-          }
+        }
+        setNumberComplete(total);
 
-        setNumberComplete(prevNumberComplete => {
-            if (prevNumberComplete !== total) {
-                return total;
-            }
-            return prevNumberComplete;
-        });
-        // trigger by skills to get total after skills state has been updated
+    // trigger by skills to get total after skills state has been updated
     }, [skills])
 
 
@@ -93,8 +88,6 @@ const SkillList = () => {
             setRetrieveSkillsData(prevValue => !prevValue)
             setIsLoading(false)
         }
-
-
     };
 
 

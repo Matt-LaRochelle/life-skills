@@ -15,14 +15,11 @@ router.use(requireAuth)
 // GET the skill list
 router.get('/', getSkillList)
 
-// update the skill list
+// UPDATE the skill list
 router.patch('/', updateSkillList)
 
 // reset a skill list
 
 // add number at the end of day
-
-
-
 
 module.exports = router

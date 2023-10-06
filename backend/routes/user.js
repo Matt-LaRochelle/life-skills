@@ -10,7 +10,6 @@ const {
     checkUser 
 } = require('../controllers/userController')
 
-
 const router = express.Router()
 const requireAuth = require('../middleware/requireAuth')
 
@@ -31,6 +30,7 @@ router.post('/reset', resetPassword)
 
 // Require authentication to check the user
 router.use(requireAuth)
+
 // check that user is 3d inside logging in
 router.get('/check', checkUser)
 

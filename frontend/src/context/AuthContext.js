@@ -30,13 +30,6 @@ export const AuthContextProvider = ({ children }) => {
                             'Authorization': `Bearer ${user.token}`
                         }
                     })
-                    const json = await response.json()
-                    // This JSON has the skills document in it - set the global state
-                    
-                    //TO DO ^^^ Actually cannot because this is outside the skills context provider
-
-
-                    console.log(json)
 
                     if (response.ok) {
                         dispatch({ type: 'LOGIN', payload: user })
