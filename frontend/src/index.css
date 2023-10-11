@@ -3,23 +3,29 @@
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  /* --primary: #1aac83;
   --error: #e7195a;
   --wall: #f1f1f1;
   --feature: #fff;
-  --text: #333;
+  --text: #333; */
 
   -webkit-text-size-adjust:none;
 
-  /* --primary: #04c153;
+  --primary: #04c153;
   --error: #a30404;
   --wall: #f9e6e6;
   --feature: #fcebac;
-  --text: #333; */
+  --text: #333;
 }
+
+/* CSS reset */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+/* Layout */
 body {
   background: var(--wall);
   margin: 0;
