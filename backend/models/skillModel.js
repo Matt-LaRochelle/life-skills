@@ -13,7 +13,11 @@ const skillSchema = new Schema({
     dec: Boolean,
     lis: Boolean,
     userID: String,
-    tally: [Number]
+    tally: [{
+        _id: false,
+        skillNumber: Number,
+        date: Date
+      }]
 }, { timestamps: true })
 
 module.exports = mongoose.model('Skill', skillSchema)
