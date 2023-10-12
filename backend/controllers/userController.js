@@ -142,4 +142,43 @@ const checkUser = async (req, res) => {
     res.status(200).json({skillList})
 }
 
-module.exports = { signupUser, loginUser, forgotUser, verifyLink, resetPassword, checkUser }
+const dailySkillTally = async (req, res) => {
+    // Get all the users and store them in a list
+    const userList = await User.find({});
+
+
+    // How do loop through the userList and:
+    // For each user in userList use the _id to look up their skills
+    // const individualUsersSkillDocument = await Skill.findOne({userID: userList.user._id})
+
+    for (const user of userList) {
+        // For each user in userList, use the _id to look up their skills
+        const individualUsersSkillDocument = await Skill.findOne({ userID: user._id });
+        console.log(individualUsersSkillDocument._id)
+  
+        
+        // Loop through the individualUsersSkillDocument and add +1 to the tally variable for each item that equals true
+        let tally = 0;
+        for (const key in individualUsersSkillDocument) {
+          if (individualUsersSkillDocument[key] === true) {
+            tally += 1;
+          }
+        }
+
+        // Create an object with the tally and today's date
+        const skillData = {
+        tally: tally,
+        date: new Date()
+      };
+      console.log(skillData)
+
+
+    }
+  
+
+    // Push that object to the skills DB
+
+    // Reset their skills to 0
+}
+
+module.exports = { signupUser, loginUser, forgotUser, verifyLink, resetPassword, checkUser, dailySkillTally }
