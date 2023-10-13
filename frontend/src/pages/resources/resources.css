@@ -1,0 +1,17 @@
+.resources__container p,
+.resources__container iframe {
+    display: block;
+    margin: auto;
+    width: max-content;
+    border-radius: 8px;
+}
+.resources__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-top: 30px;
+}
+
+.resources__grid img {
+    width: 100%;
+}

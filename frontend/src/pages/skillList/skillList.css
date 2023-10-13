@@ -4,6 +4,7 @@ padding: 14px 14px;
 /* max-width: 400px; */
 width: max-content;
 margin: auto;
+border-radius: 20px;
 }
 
 .skillList__container p {

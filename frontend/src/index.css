@@ -49,7 +49,7 @@ header a {
   text-decoration: none;
 }
 nav span {
-  margin-right: 10px;
+  margin: 0px 15px 0px 35px;
 }
 .nav-links {
   display: flex;

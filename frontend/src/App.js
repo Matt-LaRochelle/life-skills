@@ -3,6 +3,7 @@ import { useAuthContext } from './hooks/useAuthContext'
 
 // pages & components
 import SkillList from './pages/skillList/SkillList'
+import Resources from './pages/resources/Resources'
 import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -21,6 +22,10 @@ function App() {
           <Route
               path="/"
               element={user ? <SkillList /> : <Navigate to="/login" />}
+            />
+          <Route
+              path="/resources"
+              element={user ? <Resources /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"
