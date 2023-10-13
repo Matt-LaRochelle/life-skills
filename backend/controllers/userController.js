@@ -146,6 +146,7 @@ const checkUser = async (req, res) => {
 const dailySkillTally = async (req, res) => {
     // Get all the users and store them in a list
     const userList = await User.find({});
+    console.log(userList)
 
     // Loop through each user
     for (const user of userList) {
@@ -158,8 +159,10 @@ const dailySkillTally = async (req, res) => {
         // Loop through the individualUsersSkillDocument and add +1 to the tally variable for each item that equals true
         let skillTally = 0;
         for (const key in individualUsersSkillDocument) {
-            if (individualUsersSkillDocument.hasOwnProperty(key) && individualUsersSkillDocument[key] === true) {
-                console.log("item which is true:", individualUsersSkillDocument.key)
+            if (individualUsersSkillDocument[key] === true
+                    && key !== "$isMongooseModelPrototype"
+                    && key !== "$isMongooseDocumentPrototype") {
+                console.log("item which is true:", key)
                 skillTally += 1;
             }
         }
@@ -184,6 +187,7 @@ const dailySkillTally = async (req, res) => {
 
 
     }
+    res.status(200).json({message: "Triggered at midnight complete"})
 }
 
 module.exports = { signupUser, loginUser, forgotUser, verifyLink, resetPassword, checkUser, dailySkillTally }
