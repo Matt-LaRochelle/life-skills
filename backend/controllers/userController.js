@@ -160,6 +160,7 @@ const dailySkillTally = async (req, res) => {
         let skillTally = 0;
         for (const key in individualUsersSkillDocument) {
             if (individualUsersSkillDocument[key] === true
+            // Also check that the key/value pair is not including one of these two:
                     && key !== "$isMongooseModelPrototype"
                     && key !== "$isMongooseDocumentPrototype") {
                 console.log("item which is true:", key)
@@ -184,8 +185,22 @@ const dailySkillTally = async (req, res) => {
 
         // Reset their skills to 0 - not until everything is working
         // Mario 8, Luigi 5, Peach 2
-
-
+        const finished = await Skill.updateOne(
+            { userID: user._id },
+            { 
+                exe: false, 
+                fin: false, 
+                med: false, 
+                com: false, 
+                upE: false, 
+                pub: false, 
+                hon: false, 
+                lea: false, 
+                dec: false, 
+                lis: false 
+            }
+          );
+          console.log("finished", finished)
     }
     res.status(200).json({message: "Triggered at midnight complete"})
 }

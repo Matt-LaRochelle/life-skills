@@ -25,17 +25,17 @@ app.use('/api/user', userRoutes)
 app.use('/api/skill', skillRoutes)
 
 
-// Calculate users scores at midnight
-// cron.schedule('* * * * *', () => {
-//     console.log('running cron job');
-//     fetch(`http://localhost:${process.env.PORT}/api/user/triggerAtMidnight`)
-//         .then(response => {
-//             console.log('Function executed at midnight');
-//         })
-//         .catch(error => {
-//             console.error('Error executing function at midnight:', error);
-//         });
-//   });
+// Calculate users scores at 11:59pm every night
+cron.schedule('59 23 * * *', () => {
+    console.log('running cron job');
+    fetch(`http://localhost:${process.env.PORT}/api/user/triggerAtMidnight`)
+        .then(response => {
+            console.log('Function executed at midnight');
+        })
+        .catch(error => {
+            console.error('Error executing function at midnight:', error);
+        });
+  });
 
 
 // connect to db
