@@ -69,7 +69,7 @@ const SkillList = () => {
         // make the const skill the key in this patchObject
         const patchObject = {[skill]: !currentValueOfThisSkill}
 
-        const response = await fetch(`${process.env.API}/api/skill/`, {
+        const response = await fetch(`https://life-skills.onrender.com/api/skill/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

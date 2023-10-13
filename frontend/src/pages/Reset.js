@@ -41,7 +41,7 @@ function ResetPassword() {
     setIsLoading(true)
     // TODO: Send password reset request to server
     if (password === confirmPassword) {
-      const response = await fetch(`${process.env.API}/api/user/reset`, {
+      const response = await fetch(`https://life-skills.onrender.com/api/user/reset`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ token, password })

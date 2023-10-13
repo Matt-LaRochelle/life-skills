@@ -12,7 +12,7 @@ export const useSignup = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch(`${process.env.API}/api/user/signup`, {
+        const response = await fetch(`https://life-skills.onrender.com/api/user/signup`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
