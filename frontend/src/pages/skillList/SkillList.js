@@ -95,6 +95,8 @@ const SkillList = () => {
         <div className="skillList__container">
             <p>{formattedDate}</p>
             <p>Total: {numberComplete}</p>
+            {error & <div>{error}</div>}
+            {isLoading & <p>Retrieving documents from server</p>}
             {skills &&
             <ul>
                 <li><span id="exe" onClick={handleClick}>{skills.exe === false ? "To Do" : "Done"}</span>Exercise consistently</li>
