@@ -10,7 +10,7 @@ const Forgot = () => {
     const handleForgotSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch('http://localhost:4000/api/user/forgot', {
+        const response = await fetch(`${process.env.API}/api/user/forgot`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email: email})

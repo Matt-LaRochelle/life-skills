@@ -69,7 +69,7 @@ const SkillList = () => {
         // make the const skill the key in this patchObject
         const patchObject = {[skill]: !currentValueOfThisSkill}
 
-        const response = await fetch('http://localhost:4000/api/skill/', {
+        const response = await fetch(`${process.env.API}/api/skill/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
