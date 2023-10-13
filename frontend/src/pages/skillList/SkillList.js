@@ -23,7 +23,7 @@ const SkillList = () => {
     useEffect(() => {
         const getSkillsObject = async () => {
             setIsLoading(true)
-            const response = await fetch('http://localhost:4000/api/skill/', {
+            const response = await fetch('https://life-skills.onrender.com/api/skill/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
