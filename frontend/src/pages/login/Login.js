@@ -46,12 +46,16 @@ const Login = () => {
                                     value={password}
                                 />
                             </div>
-                            <div className='inputBox'>
-                                <input type="submit" value="Login" disabled={isLoading} />
+                            <div className='login-signup-flex'>
+
+                                <div className='inputBox login'>
+                                    <input type="submit" value="Login" disabled={isLoading} />
+                                </div>
+                                <p className="OR">Or</p>
+                                <Link to="/signup" className="signup-button">Signup</Link>
                             </div>
 
                             <p className='forget'>Forgot your password? <Link to="/forgot">Reset it here</Link></p>
-                            <p className='forget'>Don't have an account? <Link to="/signup">Signup here</Link></p>
                             {error && <div className='error'>{error}</div>}
                             {isLoading && 
                                     <div className="loading">

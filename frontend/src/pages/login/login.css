@@ -165,13 +165,46 @@
     color: hsla(0, 38%, 22%, 0.7);
     max-width: 100px;
     cursor: pointer;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     font-weight: 600;
 }
 .form .inputBox input[type="submit"]:hover {
     filter: brightness(0.9);
     cursor: pointer;
     background-color: #ff359a1b;
+}
+.login-signup-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signup-button {
+    background: #ffffffa9;
+    color: #666;
+    color: hsla(0, 38%, 22%, 0.7);
+    max-width: 100px;
+    cursor: pointer;
+    /* margin: 20px 0px; */
+    margin: 0;
+    font-weight: 600;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 35px;
+    text-decoration: none;
+}
+.signup-button:hover {
+    filter: brightness(0.9);
+    cursor: pointer;
+    background-color: #ff359a1b;
+}
+.OR {
+    /* margin: 20px 0 20px 40px; */
+    color: hsla(0, 38%, 22%, 0.7);
+}
+.inputBox.login {
+    width: max-content;
+    margin: 7px 0 0;
 }
 
 .forget {
